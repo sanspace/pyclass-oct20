@@ -1,3 +1,6 @@
-squares = [x**2 for x in range(10)]
+def reverse(data):
+    for index in range(len(data)-1, -1, -1):
+        yield data[index]
 
-print(squares)
+for char in reverse('golf'):
+    print(char)

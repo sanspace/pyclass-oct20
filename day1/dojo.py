@@ -1,50 +1,20 @@
+def outer(func):
+    def inner():
+        print("Function START")
+        func()
+        print("Function STOP")
+    return inner
 
-# def get_admin_password():
-#     return "1234"
+@outer
+def hello():
+    print("Hello")
 
-# def secure_function(func):
-#     if user["access_level"] == "admin":
-#         return func
+@hi
+def hi():
+    print("hi")
 
-# # user = {"username": "jose", "access_level": "guest"}
-# user = {"username": "bob", "access_level": "admin"}
-# get_admin_password = secure_function(get_admin_password)
+# hello = outer(hello)
+# hi = outer(hi)
 
-
-# print(get_admin_password()) # originalrint(admin_password()) # admin version
-@make_secure
-def get_admin_password():
-    return "1234"
-
-
-def make_secure(func):
-    def secure_function():
-        if user["access_level"] == "admin":
-            return func()
-
-    return secure_function
-
-get_admin_password = make_secure(
-    get_admin_password
-)  # `get_admin_password` is now `secure_func` from above
-
-user = {"username": "jose", "access_level": "guest"}
-print(get_admin_password())  # Now we check access level
-
-user = {"username": "bob", "access_level": "admin"}
-print(get_admin_password())  # Now we check access level
-
-
-================
-
-decorator
-
-
-@login_required("ADMIN")
-@nonzerobalance("SAVINGS_ACCOUNT")
-def withdraw():
-    # current bal - withdraw bal
-
-
-    
-
+hello()
+hi()

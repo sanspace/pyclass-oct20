@@ -12,9 +12,7 @@
 
 ## Practice
 
-  - Given a list of tuples with current and min balances:
-    `[("Guido", 2000, 500), ("Raymond", -52, 1000), ("Jack", 900, 1000), ("Brandon", 2000, 0)]`
-    use comprehensions to get the below:
+  - Given a list of tuples with current and min balances: `[("Guido", 2000, 500), ("Raymond", -52, 1000), ("Jack", 900, 1000), ("Brandon", 2000, 0)]` use comprehensions to get the below:
     - dict of those with proper balances (above or equal min bal)
         `{"Guido": 2000, "Brandon": 2000}`
     - set of all balances

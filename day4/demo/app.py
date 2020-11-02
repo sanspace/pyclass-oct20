@@ -1,25 +1,41 @@
-from flask import Flask, request
-from markupsafe import escape
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/') # route
-def hello_world(): # route handler
-    return 'Hello, World!' # response
+developers = {
+    1: { "name": "john", "skills": ["python", "aws"], "experience": [] },
+    2: { "name": "jane", "skills": ["java", "jsp"] },
+    3: { "name": "james", "skills": ["python", "ml"] },
+    4: { "name": "jack", "skills": ["python", "ds"] },
+    5: { "name": "jill", "skills": ["go", "web"] },
+}
 
-@app.route('/user/<username>')
-def show_user_profile(username):
-    return f'User {username}'
+@app.route('/')
+def index():
+    return "Home Page of the API"
 
-@app.route('/accounts/<int:accountnumber>', methods=['GET', 'POST', 'PUT'])
-def accounts(accountnumber):
-    if request.method == 'GET':
-        pass
-    elif request.method == 'PUT':
-        pass
-    elif request.method == 'POST':
-        pass
+@app.route('/developers/<int:dev_id>', methods=['PUT', 'GET', 'DELETE'])
+def dev(dev_id):
+    dev = developers.get(dev_id)
+    if not dev:
+        return jsonify("Developer not found"), 404
     else:
-        pass
+        if request.method == 'PUT':
+            new_dev = request.json
+            developers[dev_id] = new_dev
+            return f"{dev_id} was updated", 200
+        elif request.method == 'DELETE':
+            del developers[dev_id]
+            return f"{dev_id} was deleted", 204
+        else:
+            return dev
 
-    return f'Account {accountnumber + 1}'
+@app.route('/developers/', methods=['POST', 'GET'])
+def devs():
+    if request.method == 'POST': # POST requests
+        new_dev = request.json
+        new_dev_id = max(developers) + 1
+        developers[new_dev_id] = new_dev
+        return developers[new_dev_id], 201
+    else: # Get request
+        return developers, 200
